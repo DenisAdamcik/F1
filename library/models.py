@@ -1,3 +1,4 @@
+# File: F1-main/library/models.py
 from django.db import models
 
 
@@ -18,7 +19,7 @@ class Driver(models.Model):
         verbose_name='Number of Wins'
     )
     photo = models.ImageField(
-        upload_to='drivers/',
+        upload_to='media/drivers/',
         null=True,
         blank=True,
         verbose_name='Driver Photo'
@@ -68,6 +69,14 @@ class Team(models.Model):
         verbose_name='Second Driver',
         related_name='secondary_teams'
     )
+    # New field for team logo
+    logo = models.ImageField(
+        upload_to='teams/',
+        null=True,
+        blank=True,
+        verbose_name='Team Logo'
+    )
+
 
     class Meta:
         ordering = ['team_name']
@@ -88,6 +97,14 @@ class Car(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Owning Team'
     )
+    # New field for car photo
+    photo = models.ImageField(
+        upload_to='cars/',
+        null=True,
+        blank=True,
+        verbose_name='Car Photo'
+    )
+
 
     class Meta:
         ordering = ['model']

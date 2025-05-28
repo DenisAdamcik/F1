@@ -1,13 +1,26 @@
-<h1>Top Drivers</h1>
-<ul>
-  {% for driver in top_drivers %}
-    <li>{{ driver.name }} ({{ driver.number_of_wins }} wins)</li>
-  {% endfor %}
-</ul>
+{% extends 'base.html' %}
+{% load static %}
 
-<h2>Teams</h2>
-<ul>
-  {% for team in teams %}
-    <li>{{ team.team_name }} - {{ team.country }}</li>
-  {% endfor %}
-</ul>
+{% block title %}F1 Portál{% endblock %}
+
+{% block content %}
+<!-- Týmy jako kategorie -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+    <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-8">Týmy F1</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {% for team in teams %}
+        <a href="{% url 'team_detail' team.pk %}" class="group block bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300 p-6 text-center">
+            {% if team.logo %}
+            <img src="{{ team.logo.url }}" alt="{{ team.team_name }}" class="mx-auto w-32 h-32 object-contain mb-4">
+            {% else %}
+            <img src="{% static 'img/default_team.png' %}" alt="No logo" class="mx-auto w-32 h-32 object-contain mb-4">
+            {% endif %}
+            <p class="text-lg font-semibold text-gray-800 group-hover:text-red-600 transition-colors">{{ team.team_name }}</p>
+            <p class="text-sm text-gray-500 mt-1">{{ team.country }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

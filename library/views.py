@@ -6,13 +6,14 @@ from .models import Driver, Team, Car
 
 
 def index(request):
-    context = {
-       'top_drivers': Driver.objects.order_by('-number_of_wins')[:5],
-       'teams': Team.objects.all(),
-    }
-    return render(request, 'index.html', context=context)
-
-
+    drivers = Driver.objects.all()
+    teams = Team.objects.all()
+    cars = Car.objects.all()
+    return render(request, 'index.html', {
+        'drivers': drivers,
+        'teams': teams,
+        'cars': cars
+    })
 
 class DriverListView(ListView):
     model = Driver

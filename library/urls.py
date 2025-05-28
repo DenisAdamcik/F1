@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -13,3 +15,7 @@ urlpatterns = [
     path('cars/', views.CarListView.as_view(), name='car_list'),
     path('cars/<int:pk>/', views.CarDetailView.as_view(), name='car_detail'),
 ]
+
+# Přidá media URL při vývoji (DEBUG = True)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
