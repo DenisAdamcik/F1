@@ -63,6 +63,11 @@ class TeamDetailView(DetailView):
     template_name = 'teams/team_detail.html'
     context_object_name = 'team'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cars'] = Car.objects.filter(team=self.object)
+        return context
+
 
 class TeamCreateView(CreateView):
     model = Team

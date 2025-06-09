@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ team.team_name }} | Detail týmu{% endblock %}
+
+{% block content %}
+{% include 'presets/nav.html' %}
+
+<style>
+    @media (min-width: 768px){
+        .driver-divider{
+            border-right: 1px solid #dee2e6;
+        }
+    }
+
+    .driver-card {
+        transition: background-color 0.3s, transform 0.3s;
+        border-radius: 0.5rem;
+    }
+    .driver-card:hover {
+        background-color: #f8f9fa;
+        transform: scale(1.02);
+    }
+
+    .car-image-wrapper {
+        max-width: 720px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .car-image-wrapper:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .car-image-wrapper img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+
+    .car-link {
+        text-decoration: none;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="display-4 fw-bold mb-3">{{ team.team_name }}</h2>
+            <p class="lead text-muted">{{ team.country }} | Motor: {{ team.engine_supplier }}</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-4 text-center mb-4">
+            {% if team.logo %}
+                <img src="{{ team.logo.url }}" alt="{{ team.team_name }}" class="img-fluid rounded shadow" style="max-height:220px; background:#f8f9fa; object-fit:contain;">
+            {% else %}
+                <img src="{% static 'img/default_team.png' %}" alt="No logo" class="img-fluid rounded shadow" style="max-height:220px; background:#f8f9fa; object-fit:contain;">
+            {% endif %}
+            {% if team.description %}
+                <div class="mt-3 text-start text-muted" style="white-space: pre-line;">{{ team.description }}</div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                {% if team.driver1 %}
+                <div class="col-md-6 mb-4">
+                    <a href="{% url 'driver_detail' team.driver1.pk %}" class="text-decoration-none text-dark">
+                        <div class="text-center driver-card p-3 shadow-sm">
+                            {% if team.driver1.photo %}
+                                <img src="{{ team.driver1.photo.url }}" alt="{{ team.driver1.name }}" class="rounded-circle mb-2" style="width:100px; height:100px; object-fit:cover;">
+                            {% else %}
+                                <img src="{% static 'img/default_driver.png' %}" alt="No photo" class="rounded-circle mb-2" style="width:100px; height:100px; object-fit:cover;">
+                            {% endif %}
+                            <div>
+                                <strong>{{ team.driver1.name }}</strong><br>
+                                <span class="text-muted">{{ team.driver1.nationality }}</span><br>
+                                <span>Výhry: {{ team.driver1.number_of_wins }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if team.driver2 %}
+                <div class="col-md-6 mb-4">
+                    <a href="{% url 'driver_detail' team.driver2.pk %}" class="text-decoration-none text-dark">
+                        <div class="text-center driver-card p-3 shadow-sm">
+                            {% if team.driver2.photo %}
+                                <img src="{{ team.driver2.photo.url }}" alt="{{ team.driver2.name }}" class="rounded-circle mb-2" style="width:100px; height:100px; object-fit:cover;">
+                            {% else %}
+                                <img src="{% static 'img/default_driver.png' %}" alt="No photo" class="rounded-circle mb-2" style="width:100px; height:100px; object-fit:cover;">
+                            {% endif %}
+                            <div>
+                                <strong>{{ team.driver2.name }}</strong><br>
+                                <span class="text-muted">{{ team.driver2.nationality }}</span><br>
+                                <span>Výhry: {{ team.driver2.number_of_wins }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if not team.driver1 and not team.driver2 %}
+                <div class="col-12 text-center text-muted py-4">
+                    Žádní jezdci nejsou přiřazeni.
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="mt-4">
+                <h5 class="fw-bold mb-3">Car</h5>
+                {% for car in cars %}
+                <div class="mb-4 text-center rounded">
+                    <a href="{% url 'car_detail' car.pk %}" class="car-link">
+                        <div class="car-image-wrapper mx-auto">
+                            {% if car.photo %}
+                                <img src="{{ car.photo.url }}" alt="{{ car.model }}">
+                            {% else %}
+                                <img src="{% static 'img/default_car.png' %}" alt="No photo">
+                            {% endif %}
+                        </div>
+                    </a>
+                    <div class="text-center mt-2">
+                        <strong>{{ car.model }}</strong>
+                        {% if car.description %}
+                            <div class="mt-2 text-muted text-center" style="white-space: pre-line;">{{ car.description }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center text-muted">
+                    Žádné vozy nejsou přiřazeny.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary">Zpět na přehled týmů</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Správa databáze{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">Správa databáze</h2>
+    <div class="list-group list-group-flush shadow-sm mx-auto" style="max-width:400px;">
+        <a href="{% url 'driver_list' %}" class="list-group-item list-group-item-action">Řidiči</a>
+        <a href="{% url 'team_list' %}" class="list-group-item list-group-item-action">Týmy</a>
+        <a href="{% url 'car_list' %}" class="list-group-item list-group-item-action">Auta</a>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary">Pokročilá správa (Django admin)</a>
+    </div>
+</div>
+{% endblock %}

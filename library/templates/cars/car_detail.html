@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ car.model }} | Detail auta{% endblock %}
+
+{% block content %}
+{% include 'presets/nav.html' %}
+<style>
+    /* Animace pro fade efekt mezi obrázky */
+    .carousel-item {
+        transition: opacity 1s ease-in-out;
+    }
+</style>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 p-4 rounded-4">
+                <div class="row g-4 align-items-center">
+                    <!-- Carousel Section Only -->
+                    <div class="col-12 text-center">
+                        <div id="carCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+                            <div class="carousel-inner rounded-3 shadow-sm">
+                                {% if car.photo2 %}
+                                <div class="carousel-item active">
+                                    <img src="{{ car.photo2.url }}" class="d-block w-100 object-fit-cover" style="height:400px; background:#f8f9fa;" alt="Car photo 2">
+                                </div>
+                                {% endif %}
+                                {% if car.photo3 %}
+                                <div class="carousel-item {% if not car.photo2 %}active{% endif %}">
+                                    <img src="{{ car.photo3.url }}" class="d-block w-100 object-fit-cover" style="height:400px; background:#f8f9fa;" alt="Car photo 3">
+                                </div>
+                                {% endif %}
+                                {% if car.photo4 %}
+                                <div class="carousel-item {% if not car.photo2 and not car.photo3 %}active{% endif %}">
+                                    <img src="{{ car.photo4.url }}" class="d-block w-100 object-fit-cover" style="height:400px; background:#f8f9fa;" alt="Car photo 4">
+                                </div>
+                                {% endif %}
+                                {% if not car.photo2 and not car.photo3 and not car.photo4 %}
+                                <div class="carousel-item active">
+                                    <img src="{% static 'img/default_car.png' %}" class="d-block w-100 object-fit-cover" style="height:400px; background:#f8f9fa;" alt="No photo">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Předchozí</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Další</span>
+                            </button>
+                        </div>
+                        <h2 class="fw-bold mt-4">{{ car.model }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'car_list' %}" class="btn btn-outline-dark px-4 py-2 rounded-pill shadow-sm">← Zpět na seznam aut</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

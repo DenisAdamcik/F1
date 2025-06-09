@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Seznam řidičů{% endblock %}
+
+{% block content %}
+{% include 'presets/nav.html' %}
+<style>
+
+</style>
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="display-4 font-weight-bold mb-3" style="letter-spacing: 2px;">Řidiči F1</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        {% for driver in drivers %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex align-items-stretch border-color-dark">
+            <a href="{% url 'driver_detail' driver.pk %}" class="card shadow-sm border-0 w-100 text-decoration-none team-card h-100 driver-hover-card">
+                {% if driver.photo %}
+                <img src="{{ driver.photo.url }}" alt="{{ driver.name }}" class="card-img-top p-3" style="height: 250px; object-fit: cover; background: #f8f9fa;">
+                {% else %}
+                <img src="{% static 'img/default_driver.png' %}" alt="No photo" class="card-img-top p-3" style="height: 195px; object-fit: cover; background: #f8f9fa;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-1 text-dark font-weight-bold">{{ driver.name }}</h5>
+                    <p class="card-text text-secondary mb-2">{{ driver.nationality }}</p>
+                    <p class="card-text text-secondary mb-0">Výhry: {{ driver.number_of_wins }}</p>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="text-muted">Žádní řidiči nebyli nalezeni.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -4,23 +4,35 @@
 {% block title %}F1 Portál{% endblock %}
 
 {% block content %}
-<!-- Týmy jako kategorie -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-    <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-8">Týmy F1</h2>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+{% include 'presets/nav.html' %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="display-4 font-weight-bold mb-3" style="letter-spacing: 2px;">Týmy F1</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
         {% for team in teams %}
-        <a href="{% url 'team_detail' team.pk %}" class="group block bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300 p-6 text-center">
-            {% if team.logo %}
-            <img src="{{ team.logo.url }}" alt="{{ team.team_name }}" class="mx-auto w-32 h-32 object-contain mb-4">
-            {% else %}
-            <img src="{% static 'img/default_team.png' %}" alt="No logo" class="mx-auto w-32 h-32 object-contain mb-4">
-            {% endif %}
-            <p class="text-lg font-semibold text-gray-800 group-hover:text-red-600 transition-colors">{{ team.team_name }}</p>
-            <p class="text-sm text-gray-500 mt-1">{{ team.country }}</p>
-        </a>
+        <div class="col-12 col-sm-6 col-md-2 col-lg-3 mb-4 d-flex align-items-stretch">
+            <a href="{% url 'team_detail' team.pk %}" class="card shadow-sm border-0 w-100 text-decoration-none team-card h-100">
+                {% if team.logo %}
+                <img src="{{ team.logo.url }}" alt="{{ team.team_name }}" class="card-img-top p-3" style="height: 180px; object-fit: contain; background: #f8f9fa;">
+                {% else %}
+                <img src="{% static 'img/default_team.png' %}" alt="No logo" class="card-img-top p-3" style="height: 180px; object-fit: contain; background: #f8f9fa;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-1 text-dark font-weight-bold">{{ team.team_name }}</h5>
+                    <p class="card-text text-secondary mb-2">{{ team.country }}</p>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="text-muted">Žádné týmy nebyly nalezeny.</p>
+        </div>
         {% endfor %}
     </div>
 </div>
+
 
 {% endblock %}

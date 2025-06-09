@@ -24,6 +24,10 @@ class Driver(models.Model):
         blank=True,
         verbose_name='Driver Photo'
     )
+    description = models.TextField(
+        blank=True,
+        verbose_name='Popis řidiče'
+    )
 
     class Meta:
         ordering = ['-number_of_wins', 'name']
@@ -69,12 +73,15 @@ class Team(models.Model):
         verbose_name='Second Driver',
         related_name='secondary_teams'
     )
-    # New field for team logo
     logo = models.ImageField(
         upload_to='teams/',
         null=True,
         blank=True,
         verbose_name='Team Logo'
+    )
+    description = models.TextField(
+        blank=True,
+        verbose_name='Popis týmu'
     )
 
 
@@ -97,14 +104,30 @@ class Car(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Owning Team'
     )
-    # New field for car photo
     photo = models.ImageField(
         upload_to='cars/',
         null=True,
         blank=True,
         verbose_name='Car Photo'
     )
-
+    photo2 = models.ImageField(
+        upload_to='cars/',
+        null=True,
+        blank=True,
+        verbose_name='Car Photo 2'
+    )
+    photo3 = models.ImageField(
+        upload_to='cars/',
+        null=True,
+        blank=True,
+        verbose_name='Car Photo 3'
+    )
+    photo4 = models.ImageField(
+        upload_to='cars/',
+        null=True,
+        blank=True,
+        verbose_name='Car Photo 4'
+    )
 
     class Meta:
         ordering = ['model']

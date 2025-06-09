@@ -1,61 +1,22 @@
-<style>
-    .dropdown button {
-        border: none !important;
-        background-color: transparent !important;
-        color: inherit !important;
-        box-shadow: none !important;
-    }
-</style>
-
-<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item has-text-weight-bold is-size-4" href="{% url 'index' %}">
-            🏎️ F1 Portál
-        </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'index' %}">F1 Portál</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Týmy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'driver_list' %}">Řidiči</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'car_list' %}">Auta</a>
+        </li>
+      </ul>
     </div>
-
-    <div class="navbar-menu">
-        <div class="navbar-start">
-
-            <!-- Týmy -->
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Týmy</a>
-                <div class="navbar-dropdown">
-                    <a href="{% url 'team_list' %}" class="navbar-item">Všechny týmy</a>
-                    <hr class="navbar-divider">
-                    {% for team in teams|slice:":5" %}
-                        <a href="{% url 'team_detail' team.pk %}" class="navbar-item">{{ team.team_name }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Jezdci -->
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Jezdci</a>
-                <div class="navbar-dropdown">
-                    <a href="{% url 'driver_list' %}" class="navbar-item">Všichni jezdci</a>
-                    <hr class="navbar-divider">
-                    {% for driver in drivers|slice:":5" %}
-                        <a href="{% url 'driver_detail' driver.pk %}" class="navbar-item">{{ driver.name }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Vozy -->
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">Vozy</a>
-                <div class="navbar-dropdown">
-                    <a href="{% url 'car_list' %}" class="navbar-item">Všechny vozy</a>
-                    <hr class="navbar-divider">
-                    {% for car in cars|slice:":5" %}
-                        <a href="{% url 'car_detail' car.pk %}" class="navbar-item">{{ car.model_name }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Další sekce (volitelné) -->
-            <a class="navbar-item" href="#">Závody</a>
-            <a class="navbar-item" href="#">Sezóny</a>
-        </div>
-    </div>
+  </div>
 </nav>
