@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if object %}Upravit{% else %}Přidat{% endif %} auto{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">{% if object %}Upravit{% else %}Přidat{% endif %} auto</h2>
+    <form method="post" enctype="multipart/form-data" class="mx-auto" style="max-width:500px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success">{% if object %}Uložit změny{% else %}Přidat auto{% endif %}</button>
+            <a href="{% url 'car_list' %}" class="btn btn-secondary ms-2">Zpět</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

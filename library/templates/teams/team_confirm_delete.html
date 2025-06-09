@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Smazat tým{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">Opravdu smazat tým?</h2>
+    <div class="alert alert-danger text-center mb-4">
+        Opravdu chcete smazat tým <strong>{{ team.team_name }}</strong>?
+    </div>
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Smazat</button>
+        <a href="{% url 'team_detail' team.pk %}" class="btn btn-secondary ms-2">Zpět</a>
+    </form>
+</div>
+{% endblock %}

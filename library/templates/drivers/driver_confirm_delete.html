@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Smazat řidiče{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4 text-center">Opravdu smazat řidiče?</h2>
+    <div class="alert alert-danger text-center mb-4">
+        Opravdu chcete smazat řidiče <strong>{{ driver.name }}</strong>?
+    </div>
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Smazat</button>
+        <a href="{% url 'driver_detail' driver.pk %}" class="btn btn-secondary ms-2">Zpět</a>
+    </form>
+</div>
+{% endblock %}

@@ -140,8 +140,10 @@
         </div>
     </div>
 
-    <div class="text-center mt-4">
-        <a href="{% url 'index' %}" class="btn btn-outline-secondary">Zpět na přehled týmů</a>
+    <div class="text-center mt-5">
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary me-2">Zpět na přehled týmů</a>
+        <a href="{% url 'team_edit' team.pk %}" class="btn btn-primary me-2">Upravit</a>
+        <a href="{% url 'team_delete' team.pk %}" class="btn btn-danger">Smazat</a>
     </div>
 </div>
 

@@ -30,6 +30,7 @@ class DriverDetailView(DetailView):
 class DriverCreateView(CreateView):
     model = Driver
     template_name = 'drivers/driver_form.html'
+    fields = '__all__'  # ← přidáno
 
     def get_success_url(self):
         return reverse_lazy('driver_detail', kwargs={'pk': self.object.pk})
@@ -39,6 +40,7 @@ class DriverUpdateView(UpdateView):
     model = Driver
     template_name = 'drivers/driver_form.html'
     context_object_name = 'driver'
+    fields = '__all__'  # ← přidáno
 
     def get_success_url(self):
         return reverse_lazy('driver_detail', kwargs={'pk': self.object.pk})
@@ -72,15 +74,16 @@ class TeamDetailView(DetailView):
 class TeamCreateView(CreateView):
     model = Team
     template_name = 'teams/team_form.html'
+    fields = '__all__'  # ← přidáno
 
     def get_success_url(self):
         return reverse_lazy('team_detail', kwargs={'pk': self.object.pk})
-
 
 class TeamUpdateView(UpdateView):
     model = Team
     template_name = 'teams/team_form.html'
     context_object_name = 'team'
+    fields = '__all__'  # ← přidáno
 
     def get_success_url(self):
         return reverse_lazy('team_detail', kwargs={'pk': self.object.pk})
@@ -107,15 +110,16 @@ class CarDetailView(DetailView):
 class CarCreateView(CreateView):
     model = Car
     template_name = 'cars/car_form.html'
+    fields = '__all__'  # ← přidáno
 
     def get_success_url(self):
         return reverse_lazy('car_detail', kwargs={'pk': self.object.pk})
-
 
 class CarUpdateView(UpdateView):
     model = Car
     template_name = 'cars/car_form.html'
     context_object_name = 'car'
+    fields = '__all__'  # ← přidáno
 
     def get_success_url(self):
         return reverse_lazy('car_detail', kwargs={'pk': self.object.pk})

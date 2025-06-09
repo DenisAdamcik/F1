@@ -13,30 +13,38 @@
     </div>
     <div class="row justify-content-center">
         {% for car in cars %}
-        <div class="col-12 col-md-8 mb-4 d-flex align-items-stretch">
-            <a href="{% url 'car_detail' car.pk %}" class="w-100 text-decoration-none">
-                <div class="car-card shadow-sm border-0 w-100 h-100 text-decoration-none">
-                    {% if car.photo %}
-                    <img src="{{ car.photo.url }}" alt="{{ car.model }}" class="card-img-top mx-auto d-block"
-                         style="height: 250px; width: 100%; max-width: 100%; object-fit: cover; background: #f8f9fa; border-radius: 0.5rem;">
-                    {% else %}
-                    <img src="{% static 'img/default_car.png' %}" alt="No photo" class="card-img-top mx-auto d-block"
-                         style="height: 250px; width: 100%; max-width: 100%; object-fit: cover; background: #f8f9fa; border-radius: 0.5rem;">
-                    {% endif %}
-                    <div class="text-center mt-2">
-                        <h5 class="card-title mb-1 text-dark font-weight-bold">{{ car.model }}</h5>
-                        {% if car.team %}
-                        <div class="mb-1 text-secondary">Tým: {{ car.team.team_name }}</div>
+        <div class="col-12 col-md-8 mb-5 d-flex align-items-stretch">
+            <div class="w-100">
+                <a href="{% url 'car_detail' car.pk %}" class="w-100 text-decoration-none">
+                    <div class="car-card shadow-sm border-0 w-100 h-100 text-decoration-none">
+                        {% if car.photo %}
+                        <img src="{{ car.photo.url }}" alt="{{ car.model }}" class="card-img-top mx-auto d-block"
+                             style="height: 250px; width: 100%; max-width: 100%; object-fit: cover; background: #f8f9fa; border-radius: 0.5rem;">
+                        {% else %}
+                        <img src="{% static 'img/default_car.png' %}" alt="No photo" class="card-img-top mx-auto d-block"
+                             style="height: 250px; width: 100%; max-width: 100%; object-fit: cover; background: #f8f9fa; border-radius: 0.5rem;">
                         {% endif %}
+                        <div class="text-center mt-2">
+                            <h5 class="card-title mb-1 text-dark font-weight-bold">{{ car.model }}</h5>
+                            {% if car.team %}
+                            <div class="mb-1 text-secondary">Tým: {{ car.team.team_name }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+                <div style="height: 18px;"></div>
+            </div>
         </div>
         {% empty %}
         <div class="col-12 text-center text-muted">
             Žádná auta nebyla nalezena.
         </div>
         {% endfor %}
+    </div>
+    <div class="row mt-4">
+        <div class="col text-center">
+            <a href="{% url 'car_add' %}" class="btn btn-success mt-2">Přidat auto</a>
+        </div>
     </div>
 </div>
 {% endblock %}
