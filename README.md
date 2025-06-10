@@ -1,0 +1,2 @@
+Jmeno: admin
+Heslo: admin
